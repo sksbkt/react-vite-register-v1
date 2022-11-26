@@ -1,8 +1,9 @@
 import styles from "../register/register.module.scss"
-import React, { useEffect, useRef, useState } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
 import RegisterInput from "./registerInput/registerInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { render } from "react-dom";
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -30,6 +31,11 @@ function Register() {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    useEffect(() => {
+        console.log(validName);
+
+    }, [validName]);
+
 
     useEffect(() => {
         setValidPwd(PWD_REGEX.test(pwd));
@@ -38,7 +44,7 @@ function Register() {
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd, matchPwd])
+    }, [user, pwd, matchPwd]);
 
     return (
         <section >
@@ -52,12 +58,13 @@ function Register() {
                 >{errMsg}error message</p>
             </div>
             <h1>Register</h1>
-            <form className={styles.registerForm}>
+            <form className={styles.registerForm} noValidate>
                 <RegisterInput
                     onChange={
-                        (value) => {
+                        (value, valid) => {
+                            setValidName(valid);
+                            setUser(value);
 
-                            setUser(value)
                         }
                     }
                     label="Username"
@@ -104,9 +111,9 @@ function Register() {
                     type="matchPassword"
                     ariaNote="confirmnote"
                     match={pwd}
-                    onChange={(value) => {
-                        setMatchPwd(value)
-                        console.log(value);
+                    onChange={(value, valid) => {
+                        setMatchPwd(value);
+                        setValidMatch(valid);
                     }}
 
                     hint={
@@ -118,6 +125,7 @@ function Register() {
                         </>)
                     }
                 />
+                <button disabled={!(validName && validMatch && matchPwd != '')}>Sign up</button>
             </form>
         </section >)
 }
