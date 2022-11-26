@@ -53,39 +53,52 @@ function RegisterInput({ label, primaryFocus = false, regex, hint, type, match, 
     }
 
     return (<section>
-        <div className={styles.inputDiv}>
+        <div className={styles.inputContainer}>
 
-            <div className={styles.verifyIcons}>
-                <input
-                    title={label}
-                    type="text"
-                    id="username"
-                    ref={inputRef}
-                    autoComplete="off"
-                    onChange={(e) => setValue(e.target.value)}
-                    value={value}
-                    required
-                    aria-invalid={valid ? "false" : "true"}
-                    aria-describedby="uidnote"
-                    onFocus={() => setFocus(true)}
-                    onBlur={() => setFocus(false)}
-                />
-                <FontAwesomeIcon icon={faCheck} className={`${valid ? styles.valid : styles.hide} ${styles.faIcon}`} />
-                <FontAwesomeIcon icon={faTimes} className={`${valid || !value ? styles.hide : styles.invalid} ${styles.faIcon}`} />
-            </div>
-            <div className={styles.dotView}>
+            <label htmlFor={label}>{label}</label>
+            <div className={styles.inputDiv}>
 
-                <div
-                    className={focus && value && !valid ? styles.instructions : styles.offscreen}
-                >
+                <div className={styles.verifyIcons}>
+                    <input
+                        title={label}
+                        type="text"
+                        id={label}
+                        ref={inputRef}
+                        autoComplete="off"
+                        onChange={(e) => setValue(e.target.value)}
+                        value={value}
+                        required
+                        aria-invalid={valid ? "false" : "true"}
+                        aria-describedby="uidnote"
+                        onFocus={() => setFocus(true)}
+                        onBlur={() => setFocus(false)}
+                    />
 
-                    {(<>
-                        {hint}
-                    </>)}
+                    {
+                        valid ?
+                            <FontAwesomeIcon icon={faCheck} className={styles.valid} /> :
+                            value ?
+                                <FontAwesomeIcon icon={faTimes} className={styles.invalid} /> : <></>
+                    }
+
+                    {/* <FontAwesomeIcon icon={faCheck} className={`${valid ? styles.valid : styles.hide} ${styles.faIcon}`} />
+                    <FontAwesomeIcon icon={faTimes} className={`${valid || !value ? styles.hide : styles.invalid} ${styles.faIcon}`} /> */}
                 </div>
+                <div className={styles.dotView}>
+
+                    <div
+                        className={focus && !valid ? styles.instructions : styles.offscreen}
+                    // className={styles.instructions}
+                    >
+
+                        {(<>
+                            {hint}
+                        </>)}
+                    </div>
+                </div>
+
+
             </div>
-
-
         </div>
     </section>)
 }

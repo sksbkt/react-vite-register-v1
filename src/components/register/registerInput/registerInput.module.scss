@@ -10,6 +10,13 @@
     display: none;
 }
 
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .inputDiv {
     position: relative;
     display: flex;
@@ -19,29 +26,41 @@
 }
 
 
-
 .verifyIcons {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     align-content: center;
     right: 0;
     top: 25%;
     margin-right: 5px;
     position: relative;
+    border: 1px solid;
+    border-radius: 5px;
+    width: 200px;
+
 
     input {
         padding: 5px;
+        border: none;
         border-radius: 5px;
-        border: 1px solid;
-        margin-left: 5px;
+        width: 80%;
     }
 
-    .faIcon {
-        position: absolute;
-        right: 10px;
+
+    &>svg {
+        margin-right: 10px;
+    }
+
+    .invalid {
+        color: red;
+    }
+
+    .valid {
+        color: green;
     }
 }
+
 
 
 
@@ -92,12 +111,4 @@
 
 .hide {
     visibility: hidden;
-}
-
-.invalid {
-    color: red;
-}
-
-.valid {
-    color: green;
 }

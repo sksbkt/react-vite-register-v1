@@ -52,12 +52,12 @@ function Register() {
                 >{errMsg}error message</p>
             </div>
             <h1>Register</h1>
-            <form>
-                <h4>Username:</h4>
+            <form className={styles.registerForm}>
                 <RegisterInput
-                    onChange={(s) => {
-                        console.log(s);
-                    }
+                    onChange={
+                        (s) => {
+                            console.log(s);
+                        }
                     }
                     label="User"
                     primaryFocus={true}
@@ -69,24 +69,23 @@ function Register() {
                                 id="uidnote"
                             >
                                 <FontAwesomeIcon icon={faInfoCircle} />
-                                4 to 24 characters.<br />
+                                &nbsp;3 to 23 characters.<br />
                                 Must begin with a letter.<br />
                                 Letters, numbers, underscores, hyphens allowed.
                             </p>
                         </>)
                     }
                 />
-                <h4>Password:</h4>
                 <RegisterInput
                     label="Username"
                     primaryFocus={true}
-                    regex={USER_REGEX}
+                    regex={PWD_REGEX}
                     type="username"
                     hint={
                         (<>
                             <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
                                 <FontAwesomeIcon icon={faInfoCircle} />
-                                8 to 24 characters.<br />
+                                &nbsp;8 to 24 characters.<br />
                                 Must include uppercase and lowercase letters, a number and a special character.<br />
                                 Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                             </p>
