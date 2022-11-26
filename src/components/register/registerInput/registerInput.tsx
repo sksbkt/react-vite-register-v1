@@ -14,62 +14,68 @@ interface registerInputProps {
     regex: RegExp,
     hint: ReactElement,
     type: 'username' | 'password' | 'matchPassword',
+    ariaNote: string,
     match?: string,
     onChange?: (value: string) => void
 }
 
-function RegisterInput({ label, primaryFocus = false, regex, hint, type, match, onChange }: registerInputProps) {
+function RegisterInput({ label, primaryFocus = false, regex, hint, type, ariaNote: ariaNote, match, onChange }: registerInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLParagraphElement>(null);
+    const [id, setId] = useState('');
 
 
     const [value, setValue] = useState('');
     const [focus, setFocus] = useState(false);
 
-    const [valid, setValid] = useState(false);
-
+    const [valid, setValid] = useState<boolean>();
     useEffect(() => {
         switch (type) {
             case 'username':
                 inputRef.current?.focus();
                 setValid(regex.test(value));
-                console.log(valid, value);
                 break;
             case 'password':
+
                 setValid(regex.test(value));
-                setValid(value === match);
+                // setValid(value === match);
                 break;
+            case 'matchPassword':
+                setValid(value === match && value != '')
+                console.log(value, match);
             default:
                 break;
         }
-    }, [value]);
+        onChange ? onChange(value) : () => { }
+    }, [value, match]);
+    useEffect(() => {
+        setId(label.replace(' ', '_').toLocaleLowerCase())
+    }, []);
 
+    onchange = () => {
 
-
-    function inputValueChange(e: React.ChangeEvent<HTMLInputElement>, inValue: string) {
-        e.preventDefault();
-        if (onChange)
-            onChange(inValue);
     }
-
     return (<section>
         <div className={styles.inputContainer}>
 
-            <label htmlFor={label}>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <div className={styles.inputDiv}>
 
                 <div className={styles.verifyIcons}>
                     <input
                         title={label}
                         type="text"
-                        id={label}
+                        id={id}
                         ref={inputRef}
                         autoComplete="off"
-                        onChange={(e) => setValue(e.target.value)}
+                        onChange={(e) => {
+                            setValue(e.target.value);
+                        }}
                         value={value}
                         required
                         aria-invalid={valid ? "false" : "true"}
-                        aria-describedby="uidnote"
+                        aria-describedby={ariaNote}
+                        onLoad={(e) => { if (primaryFocus) e.currentTarget.focus }}
                         onFocus={() => setFocus(true)}
                         onBlur={() => setFocus(false)}
                     />
@@ -80,9 +86,6 @@ function RegisterInput({ label, primaryFocus = false, regex, hint, type, match, 
                             value ?
                                 <FontAwesomeIcon icon={faTimes} className={styles.invalid} /> : <></>
                     }
-
-                    {/* <FontAwesomeIcon icon={faCheck} className={`${valid ? styles.valid : styles.hide} ${styles.faIcon}`} />
-                    <FontAwesomeIcon icon={faTimes} className={`${valid || !value ? styles.hide : styles.invalid} ${styles.faIcon}`} /> */}
                 </div>
                 <div className={styles.dotView}>
 

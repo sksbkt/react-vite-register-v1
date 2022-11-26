@@ -55,14 +55,16 @@ function Register() {
             <form className={styles.registerForm}>
                 <RegisterInput
                     onChange={
-                        (s) => {
-                            console.log(s);
+                        (value) => {
+
+                            setUser(value)
                         }
                     }
-                    label="User"
+                    label="Username"
                     primaryFocus={true}
                     regex={USER_REGEX}
                     type="username"
+                    ariaNote="uidnote"
                     hint={
                         (<>
                             <p
@@ -77,10 +79,13 @@ function Register() {
                     }
                 />
                 <RegisterInput
-                    label="Username"
+                    label="Password"
                     primaryFocus={true}
                     regex={PWD_REGEX}
-                    type="username"
+                    type="password"
+                    ariaNote="pwdnote"
+                    onChange={(value) => { setPwd(value); }
+                    }
                     hint={
                         (<>
                             <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
@@ -88,6 +93,27 @@ function Register() {
                                 &nbsp;8 to 24 characters.<br />
                                 Must include uppercase and lowercase letters, a number and a special character.<br />
                                 Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                            </p>
+                        </>)
+                    }
+                />
+                <RegisterInput
+                    label="Match password"
+                    primaryFocus={true}
+                    regex={PWD_REGEX}
+                    type="matchPassword"
+                    ariaNote="confirmnote"
+                    match={pwd}
+                    onChange={(value) => {
+                        setMatchPwd(value)
+                        console.log(value);
+                    }}
+
+                    hint={
+                        (<>
+                            <p id="confirmnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                &nbsp;Must match the password
                             </p>
                         </>)
                     }
