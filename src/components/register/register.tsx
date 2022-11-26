@@ -47,87 +47,98 @@ function Register() {
     }, [user, pwd, matchPwd]);
 
     return (
-        <section >
-            <div className={styles.errMsgContainer}>
+        <div className={styles.registerRoot}>
 
-                <p
-                    ref={errRef}
-                    // className={errMsg ? styles.errmsg : styles.offscreen}
-                    className={styles.errMsg}
-                    aria-live="assertive"
-                >{errMsg}error message</p>
-            </div>
-            <h1>Register</h1>
-            <form className={styles.registerForm} noValidate>
-                <RegisterInput
-                    onChange={
-                        (value, valid) => {
-                            setValidName(valid);
-                            setUser(value);
+            <section className={styles.registerSection} >
+                <div className={styles.errMsgContainer}>
 
+                    <p
+                        ref={errRef}
+                        // className={errMsg ? styles.errmsg : styles.offscreen}
+                        className={styles.errMsg}
+                        aria-live="assertive"
+                    >{errMsg}error message</p>
+                </div>
+                <h1>Register</h1>
+                <form className={styles.registerForm} noValidate>
+                    <RegisterInput
+                        onChange={
+                            (value, valid) => {
+                                setValidName(valid);
+                                setUser(value);
+
+                            }
                         }
-                    }
-                    label="Username"
-                    primaryFocus={true}
-                    regex={USER_REGEX}
-                    type="username"
-                    ariaNote="uidnote"
-                    hint={
-                        (<>
-                            <p
-                                id="uidnote"
-                            >
-                                <FontAwesomeIcon icon={faInfoCircle} />
-                                &nbsp;3 to 23 characters.<br />
-                                Must begin with a letter.<br />
-                                Letters, numbers, underscores, hyphens allowed.
-                            </p>
-                        </>)
-                    }
-                />
-                <RegisterInput
-                    label="Password"
-                    primaryFocus={true}
-                    regex={PWD_REGEX}
-                    type="password"
-                    ariaNote="pwdnote"
-                    onChange={(value) => { setPwd(value); }
-                    }
-                    hint={
-                        (<>
-                            <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-                                <FontAwesomeIcon icon={faInfoCircle} />
-                                &nbsp;8 to 24 characters.<br />
-                                Must include uppercase and lowercase letters, a number and a special character.<br />
-                                Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-                            </p>
-                        </>)
-                    }
-                />
-                <RegisterInput
-                    label="Match password"
-                    primaryFocus={true}
-                    regex={PWD_REGEX}
-                    type="matchPassword"
-                    ariaNote="confirmnote"
-                    match={pwd}
-                    onChange={(value, valid) => {
-                        setMatchPwd(value);
-                        setValidMatch(valid);
-                    }}
+                        label="Username"
+                        primaryFocus={true}
+                        regex={USER_REGEX}
+                        type="username"
+                        ariaNote="uidnote"
+                        hint={
+                            (<>
+                                <p
+                                    id="uidnote"
+                                >
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    &nbsp;3 to 23 characters.<br />
+                                    Must begin with a letter.<br />
+                                    Letters, numbers, underscores, hyphens allowed.
+                                </p>
+                            </>)
+                        }
+                    />
+                    <RegisterInput
+                        label="Password"
+                        primaryFocus={true}
+                        regex={PWD_REGEX}
+                        type="password"
+                        ariaNote="pwdnote"
+                        onChange={(value) => { setPwd(value); }
+                        }
+                        hint={
+                            (<>
+                                <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    &nbsp;8 to 24 characters.<br />
+                                    Must include uppercase and lowercase letters, a number and a special character.<br />
+                                    Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                                </p>
+                            </>)
+                        }
+                    />
+                    <RegisterInput
+                        label="Match password"
+                        primaryFocus={true}
+                        regex={PWD_REGEX}
+                        type="matchPassword"
+                        ariaNote="confirmnote"
+                        match={pwd}
+                        onChange={(value, valid) => {
+                            setMatchPwd(value);
+                            setValidMatch(valid);
+                        }}
 
-                    hint={
-                        (<>
-                            <p id="confirmnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-                                <FontAwesomeIcon icon={faInfoCircle} />
-                                &nbsp;Must match the password
-                            </p>
-                        </>)
-                    }
-                />
-                <button disabled={!(validName && validMatch && matchPwd != '')}>Sign up</button>
-            </form>
-        </section >)
+                        hint={
+                            (<>
+                                <p id="confirmnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    &nbsp;Must match the password
+                                </p>
+                            </>)
+                        }
+                    />
+                    <button
+                        disabled={!(validName && validMatch && matchPwd != '')}
+                        className={styles.registerBtn}
+                    >Sign up</button>
+                </form>
+                <p className={styles.signInSection}>
+                    Already registered? <br />
+                    <a href="#">Sign in</a>
+                </p>
+            </section >
+        </div>
+    )
 }
 
 export default Register;
