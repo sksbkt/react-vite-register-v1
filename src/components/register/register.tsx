@@ -1,9 +1,9 @@
 import styles from "../register/register.module.scss"
 import React, { Component, useEffect, useRef, useState } from "react";
-import RegisterInput from "./registerInput/registerInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { render } from "react-dom";
+import RegisterInput from "../registerInput";
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -46,6 +46,20 @@ function Register() {
         setErrMsg('');
     }, [user, pwd, matchPwd]);
 
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        //! to avoid JS hack
+        const userInput = USER_REGEX.test(user)
+        const pwdInput = PWD_REGEX.test(pwd)
+        if (!userInput || !pwdInput) {
+            setErrMsg('invalid entry')
+            return;
+        }
+        console.log(user, pwd);
+        setSuccess(true);
+    }
+
     return (
         <div className={styles.registerRoot}>
 
@@ -60,7 +74,7 @@ function Register() {
                     >{errMsg}error message</p>
                 </div>
                 <h1>Register</h1>
-                <form className={styles.registerForm} noValidate>
+                <form className={styles.registerForm} noValidate onSubmit={handleSubmit}>
                     <RegisterInput
                         onChange={
                             (value, valid) => {

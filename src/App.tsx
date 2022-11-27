@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import Register from './components/register/register'
+import Register from './components/register'
+
 
 function App() {
   const [count, setCount] = useState(0)
