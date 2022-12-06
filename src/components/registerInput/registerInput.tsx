@@ -29,6 +29,9 @@ function RegisterInput({ label, primaryFocus = false, regex, hint, type, ariaNot
     const [focus, setFocus] = useState(false);
 
     const [valid, setValid] = useState<boolean>(false);
+
+    const [viewInstructions, setViewInstructions] = useState(false);
+
     useEffect(() => {
         switch (type) {
             case 'username':
@@ -82,13 +85,13 @@ function RegisterInput({ label, primaryFocus = false, regex, hint, type, ariaNot
                         valid ?
                             <FontAwesomeIcon icon={faCheck} className={styles.valid} /> :
                             value ?
-                                <FontAwesomeIcon icon={faTimes} className={styles.invalid} /> : <></>
+                                <FontAwesomeIcon icon={faTimes} className={styles.invalid} onMouseEnter={() => setViewInstructions(true)} onMouseLeave={() => { setViewInstructions(false) }} /> : <></>
                     }
                 </div>
                 <div className={styles.dotView}>
 
                     <div
-                        className={focus && !valid ? styles.instructions : styles.offscreen}
+                        className={(focus && !valid && value) || (viewInstructions) ? styles.instructions : styles.offscreen}
                     // className={styles.instructions}
                     >
 

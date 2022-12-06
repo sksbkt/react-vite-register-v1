@@ -44,7 +44,9 @@
     position: relative;
     border: 1px solid;
     border-radius: 5px;
+    border-color: global.$borderColorDark;
     width: 200px;
+    background-color: global.$backgroundColor;
 
 
     input {
@@ -76,8 +78,10 @@
 .dotView {
     width: 10px;
     height: 10px;
-    position: relative;
-    margin: 0 0 10px 10px
+    position: absolute;
+    margin: 0 0 10px 10px;
+    right: 0;
+    z-index: 9999;
 }
 
 .instructions {
@@ -87,9 +91,10 @@
     text-align: start;
     border-radius: 6px;
     padding: 5px 0;
-    z-index: 1;
+    z-index: 9999;
     border: 1px solid;
     padding: 5px;
+    pointer-events: none;
 
     svg {
         color: rgb(255, 136, 0);

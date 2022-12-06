@@ -50,12 +50,15 @@
     justify-content: center;
 
     .registerSection {
-        display: flex;
-        flex-direction: column;
-        align-content: center;
         justify-content: start;
         align-items: flex-start;
         margin-bottom: 15%;
+        background: global.$backgroundGradient;
+        padding: 10px;
+        min-width: 225px;
+        border: solid 1px;
+        border-color: global.$borderColor;
+        border-radius: 5px;
     }
 
 }
