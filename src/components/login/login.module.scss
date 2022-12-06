@@ -1,0 +1,30 @@
+@use '/src/styles/global.scss';
+@use '/src/styles/global_text.scss';
+
+.loginRoot {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    .loginSection {
+        justify-content: start;
+        align-items: flex-start;
+        margin-bottom: 15%;
+        background: global.$backgroundGradient;
+        padding: 10px;
+        min-width: 225px;
+        border: solid 1px;
+        border-color: global.$borderColor;
+        border-radius: 5px;
+    }
+
+}
+
+
+
+.errmsg {}
+
+.offscreen {}

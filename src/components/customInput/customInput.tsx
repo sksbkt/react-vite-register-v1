@@ -1,4 +1,4 @@
-import styles from '../registerInput/registerInput.module.scss'
+import styles from '../customInput/customInput.module.scss'
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
@@ -8,18 +8,18 @@ import React, { ReactElement, useEffect, useRef, useState } from "react";
 
 
 
-interface registerInputProps {
+interface customInputProps {
     label: string
     primaryFocus?: boolean,
-    regex: RegExp,
-    hint: ReactElement,
+    regex?: RegExp,
+    hint?: ReactElement,
     type: 'username' | 'password' | 'matchPassword',
-    ariaNote: string,
+    ariaNote?: string,
     match?: string,
     onChange?: (value: string, valid: boolean) => void,
 }
 
-function RegisterInput({ label, primaryFocus = false, regex, hint, type, ariaNote, match, onChange }: registerInputProps) {
+function CustomInput({ label, primaryFocus = false, regex, hint, type, ariaNote, match, onChange }: customInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLParagraphElement>(null);
     const [id, setId] = useState('');
@@ -33,20 +33,23 @@ function RegisterInput({ label, primaryFocus = false, regex, hint, type, ariaNot
     const [viewInstructions, setViewInstructions] = useState(false);
 
     useEffect(() => {
-        switch (type) {
-            case 'username':
-                setValid(regex.test(value));
-                break;
-            case 'password':
-                setValid(regex.test(value));
-                // setValid(value === match);
-                break;
-            case 'matchPassword':
-                setValid(value === match && value != '');
-            default:
-                break;
+        if (regex) {
+
+            switch (type) {
+                case 'username':
+                    setValid(regex.test(value));
+                    break;
+                case 'password':
+                    setValid(regex.test(value));
+                    // setValid(value === match);
+                    break;
+                case 'matchPassword':
+                    setValid(value === match && value != '');
+                default:
+                    break;
+            }
+            onChange ? onChange(value, valid) : () => { }
         }
-        onChange ? onChange(value, valid) : () => { }
         return () => {
 
         }
@@ -65,7 +68,7 @@ function RegisterInput({ label, primaryFocus = false, regex, hint, type, ariaNot
                 <div className={styles.verifyIcons}>
                     <input
                         title={label}
-                        type="text"
+                        type={type === 'password' || type === 'matchPassword' ? 'password' : 'text'}
                         id={id}
                         ref={inputRef}
                         autoComplete="off"
@@ -82,24 +85,27 @@ function RegisterInput({ label, primaryFocus = false, regex, hint, type, ariaNot
                     />
 
                     {
-                        valid ?
-                            <FontAwesomeIcon icon={faCheck} className={styles.valid} /> :
-                            value ?
-                                <FontAwesomeIcon icon={faTimes} className={styles.invalid} onMouseEnter={() => setViewInstructions(true)} onMouseLeave={() => { setViewInstructions(false) }} /> : <></>
+                        !regex ? <></> :
+                            valid ?
+                                <FontAwesomeIcon icon={faCheck} className={styles.valid} /> :
+                                value ?
+                                    <FontAwesomeIcon icon={faTimes} className={styles.invalid} onMouseEnter={() => setViewInstructions(true)} onMouseLeave={() => { setViewInstructions(false) }} /> : <></>
                     }
                 </div>
-                <div className={styles.dotView}>
+                {(!hint ? <></> :
+                    <div className={styles.dotView}>
 
-                    <div
-                        className={(focus && !valid && value) || (viewInstructions) ? styles.instructions : styles.offscreen}
-                    // className={styles.instructions}
-                    >
+                        <div
+                            className={(focus && !valid && value) || (viewInstructions) ? styles.instructions : styles.offscreen}
+                        // className={styles.instructions}
+                        >
 
-                        {(<>
-                            {hint}
-                        </>)}
+                            {(<>
+                                {hint}
+                            </>)}
+                        </div>
                     </div>
-                </div>
+                )}
 
 
             </div>
@@ -107,4 +113,4 @@ function RegisterInput({ label, primaryFocus = false, regex, hint, type, ariaNot
     </section>)
 }
 
-export default RegisterInput;
+export default CustomInput;

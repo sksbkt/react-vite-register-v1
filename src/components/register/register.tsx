@@ -3,7 +3,7 @@ import React, { Component, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { render } from "react-dom";
-import RegisterInput from "../registerInput";
+import CustomInput from "../customInput";
 import axios from "../../api/axios";
 import { AxiosError } from "axios";
 
@@ -109,7 +109,7 @@ function Register() {
                 </section>) : (<>
                     <h1>Register</h1>
                     <form className={styles.registerForm} noValidate onSubmit={handleSubmit}>
-                        <RegisterInput
+                        <CustomInput
                             onChange={
                                 (value, valid) => {
                                     setValidName(valid);
@@ -135,7 +135,7 @@ function Register() {
                                 </>)
                             }
                         />
-                        <RegisterInput
+                        <CustomInput
                             label="Password"
                             primaryFocus={true}
                             regex={PWD_REGEX}
@@ -154,7 +154,7 @@ function Register() {
                                 </>)
                             }
                         />
-                        <RegisterInput
+                        <CustomInput
                             label="Match password"
                             primaryFocus={true}
                             regex={PWD_REGEX}
