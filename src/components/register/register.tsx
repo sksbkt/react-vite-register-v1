@@ -1,4 +1,5 @@
 import styles from "../register/register.module.scss"
+import globalStyles from '../../styles/global.module.scss';
 import React, { Component, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
@@ -51,6 +52,8 @@ function Register() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        console.log(user, pwd);
+
         //! to avoid JS hack
         const userInput = USER_REGEX.test(user)
         const pwdInput = PWD_REGEX.test(pwd)
@@ -177,13 +180,13 @@ function Register() {
                         />
                         <button
                             disabled={!(validName && validMatch && matchPwd != '')}
-                            className={styles.registerBtn}
+                            className={globalStyles.button}
                         >Sign up</button>
                     </form>
                     <p className={styles.signInSection}>
                         Already registered? <br />
+                        <a href="#" className={globalStyles.link}>Sign in</a>
                     </p> </>)}
-                <a href="#">Sign in</a>
             </section >
         </div>
     )

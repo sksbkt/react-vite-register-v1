@@ -1,4 +1,4 @@
-@use '/src/styles/global.scss';
+@use '/src/styles/global.module.scss';
 
 .errMsg {
     color: red;
@@ -30,7 +30,9 @@
     align-items: center;
     align-content: center;
     justify-content: center;
+
 }
+
 
 
 .verifyIcons {

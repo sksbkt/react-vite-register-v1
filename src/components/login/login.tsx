@@ -1,12 +1,21 @@
 import styles from "./login.module.scss";
-
-import React from "react";
+import globalStyles from '../../styles/global.module.scss'
+import React, { FormEvent, useContext } from "react";
 
 import { useRef, useState, useEffect, } from "react";
 import CustomInput from "../customInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import AuthContext from "../../context/auth_provider";
+import axios from "../../api/axios";
+
+const LOGIN_URL = '/auth';
+
 function Login() {
+
+    const { auth, setAuth } = useContext(AuthContext);
+
+
     const userRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLParagraphElement>(null);
 
@@ -23,20 +32,61 @@ function Login() {
         setErrMsg('');
     }, [user, pwd]);
 
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        try {
+            const response = await axios.post(
+                LOGIN_URL,
+                JSON.stringify({ user, pwd }), {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            });
+
+            console.log(JSON.stringify(response?.data));
+            console.log(response);
+
+            const accessToken = response?.data.accessToken;
+            const roles = response?.data?.roles;
+
+            setAuth({ user, pwd, roles, accessToken });
+
+
+            setUser('');
+            setPwd('');
+            setSuccess(true);
+        } catch (error: any) {
+            if (!error?.response) {
+                setErrMsg('No server response');
+            } else if (error.response?.status === 400) {
+                setErrMsg('Missing username or pwd');
+            } else if (error.response?.status === 401) {
+                setErrMsg('Unauthorized');
+            } else {
+                setErrMsg('Login failed');
+            }
+            errRef.current?.focus();
+        }
+    }
+    console.log('AUTH: ', auth);
 
     return (
         <div className={styles.loginRoot}>
             <section className={styles.loginSection}>
-                <p
-                    aria-live="assertive"
-                    ref={errRef}
-                    className={errMsg ? styles.errmsg : styles.offscreen}
-                >
-                    {errMsg}
-                </p>
-                <h1>Sign in</h1>
-                <form >
-                    {/* <label htmlFor="username">Username:</label>
+                {success ? (<section>
+                    <h1>success</h1>
+                </section>) : (
+
+                    <>
+                        <p
+                            aria-live="assertive"
+                            ref={errRef}
+                            className={errMsg ? styles.errmsg : styles.offscreen}
+                        >
+                            {errMsg}
+                        </p>
+                        <h1>Sign in</h1>
+                        <form onSubmit={handleSubmit}>
+                            {/* <label htmlFor="username">Username:</label>
                     <input
                         type="text"
                         id="username"
@@ -45,19 +95,28 @@ function Login() {
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
                     /> */}
-                    <CustomInput
-                        label="Username"
-                        type="username"
-                        primaryFocus={true}
-                        onChange={(value, valid) => { setUser(value) }}
-                    />
-                    <CustomInput
-                        label="Password"
-                        type="password"
+                            <CustomInput
+                                label="Username"
+                                type="username"
+                                primaryFocus={true}
+                                onChange={(value, valid) => {
+                                    setUser(value)
+                                }}
+                            />
+                            <CustomInput
+                                label="Password"
+                                type="password"
 
-                        onChange={(value, valid) => { setPwd(value) }}
-                    />
-                </form>
+                                onChange={(value, valid) => { setPwd(value) }}
+                            />
+                            <button className={globalStyles.button}>Sign in</button>
+                        </form>
+                        <p className={styles.signInSection}>
+                            Still not registered <br />
+                            <a href="#" className={globalStyles.link} >Sign up</a>
+                        </p>
+                    </>
+                )}
             </section>
         </div>
     );

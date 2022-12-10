@@ -48,8 +48,8 @@ function CustomInput({ label, primaryFocus = false, regex, hint, type, ariaNote,
                 default:
                     break;
             }
-            onChange ? onChange(value, valid) : () => { }
         }
+        onChange ? onChange(value, valid) : () => { }
         return () => {
 
         }
