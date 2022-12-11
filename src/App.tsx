@@ -9,27 +9,38 @@ import LinkPage from './components/linkPage'
 
 import Login from './components/login'
 import Lounge from './components/lounge'
+import Missing from './components/missing'
 import Register from './components/register'
+import RequireAuth from './components/require_auth'
 import Unauthorized from './components/unauthorized'
 
 
 function App() {
-
+  const ROLES = { user: 2001, editor: 1984, admin: 5150 };
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
         {/* Public */}
+
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
         <Route path='linkpage' element={<LinkPage />} />
         <Route path='unauthorized' element={<Unauthorized />} />
         {/* protected */}
-        <Route path='/' element={<Home />} />
-        <Route path='editor' element={<Editor />} />
-        <Route path='admin' element={<Admin />} />
-        <Route path='Lounge' element={<Lounge />} />
+        <Route element={<RequireAuth allowedRoles={[ROLES.user]} />}>
+          <Route path='/' element={<Home />} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={[ROLES.editor]} />}>
+          <Route path='editor' element={<Editor />} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={[ROLES.admin]} />}>
+          <Route path='admin' element={<Admin />} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={[ROLES.editor, ROLES.admin]} />}>
+          <Route path='Lounge' element={<Lounge />} />
+        </Route>
         {/* catch all */}
-        {/* <Route path='*' element={<Missing />} /> */}
+        <Route path='*' element={<Missing />} />
       </Route>
     </Routes>
   )

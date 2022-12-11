@@ -1,22 +1,23 @@
 import styles from "./login.module.scss";
 import globalStyles from '../../styles/global.module.scss'
-import React, { FormEvent, useContext } from "react";
+import React from "react";
 
 import { useRef, useState, useEffect, } from "react";
 import CustomInput from "../elements/customInput";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import AuthContext from "../../context/auth_provider";
 import axios from "../../api/axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PageTemplate from "../elements/page_template";
+import useAuth from "../../hooks/use_auth";
 
 const LOGIN_URL = '/auth';
 
 function Login() {
 
-    const { auth, setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const userRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLParagraphElement>(null);
@@ -25,7 +26,6 @@ function Login() {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
-    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         userRef.current?.focus();
@@ -55,7 +55,7 @@ function Login() {
 
             setUser('');
             setPwd('');
-            setSuccess(true);
+            navigate(from, { replace: true });
         } catch (error: any) {
             if (!error?.response) {
                 setErrMsg('No server response');
@@ -69,28 +69,20 @@ function Login() {
             errRef.current?.focus();
         }
     }
-    console.log('AUTH: ', auth);
 
     return (
         <PageTemplate children={
-
             <>
-
-                {success ? (<section>
-                    <h1>success</h1>
-                </section>) : (
-
-                    <>
-                        <p
-                            aria-live="assertive"
-                            ref={errRef}
-                            className={errMsg ? styles.errmsg : styles.offscreen}
-                        >
-                            {errMsg}
-                        </p>
-                        <h1>Sign in</h1>
-                        <form onSubmit={handleSubmit}>
-                            {/* <label htmlFor="username">Username:</label>
+                <p
+                    aria-live="assertive"
+                    ref={errRef}
+                    className={errMsg ? styles.errmsg : styles.offscreen}
+                >
+                    {errMsg}
+                </p>
+                <h1>Sign in</h1>
+                <form onSubmit={handleSubmit}>
+                    {/* <label htmlFor="username">Username:</label>
                     <input
                         type="text"
                         id="username"
@@ -99,29 +91,29 @@ function Login() {
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
                     /> */}
-                            <CustomInput
-                                label="Username"
-                                type="username"
-                                primaryFocus={true}
-                                onChange={(value, valid) => {
-                                    setUser(value)
-                                }}
-                            />
-                            <CustomInput
-                                label="Password"
-                                type="password"
+                    <CustomInput
+                        label="Username"
+                        type="username"
+                        primaryFocus={true}
+                        onChange={(value, valid) => {
+                            setUser(value)
+                        }}
+                    />
+                    <CustomInput
+                        label="Password"
+                        type="password"
 
-                                onChange={(value, valid) => { setPwd(value) }}
-                            />
-                            <button className={globalStyles.button}>Sign in</button>
-                        </form>
-                        <p className={styles.signInSection}>
-                            Still not registered <br />
-                            <Link to="/register">Sign up</Link>
-                        </p>
-                    </>
-                )}
+                        onChange={(value, valid) => { setPwd(value) }}
+                    />
+                    <button className={globalStyles.button}>Sign in</button>
+                </form>
+                <p className={styles.signInSection}>
+                    Still not registered <br />
+                    <Link to="/register">Sign up</Link>
+                </p>
             </>
+
+
         } />
 
     );
