@@ -3,11 +3,13 @@ import globalStyles from '../../styles/global.module.scss'
 import React, { FormEvent, useContext } from "react";
 
 import { useRef, useState, useEffect, } from "react";
-import CustomInput from "../customInput";
+import CustomInput from "../elements/customInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import AuthContext from "../../context/auth_provider";
 import axios from "../../api/axios";
+import { Link } from "react-router-dom";
+import PageTemplate from "../elements/page_template";
 
 const LOGIN_URL = '/auth';
 
@@ -70,8 +72,10 @@ function Login() {
     console.log('AUTH: ', auth);
 
     return (
-        <div className={styles.loginRoot}>
-            <section className={styles.loginSection}>
+        <PageTemplate children={
+
+            <>
+
                 {success ? (<section>
                     <h1>success</h1>
                 </section>) : (
@@ -113,12 +117,13 @@ function Login() {
                         </form>
                         <p className={styles.signInSection}>
                             Still not registered <br />
-                            <a href="#" className={globalStyles.link} >Sign up</a>
+                            <Link to="/register">Sign up</Link>
                         </p>
                     </>
                 )}
-            </section>
-        </div>
+            </>
+        } />
+
     );
 }
 

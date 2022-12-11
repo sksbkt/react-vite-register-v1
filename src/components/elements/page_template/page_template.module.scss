@@ -1,0 +1,40 @@
+@use '/src/styles/global.module.scss';
+@use '/src/styles/global_text.module.scss';
+
+.templateRoot {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    .templateSection {
+        justify-content: start;
+        align-items: flex-start;
+        margin-bottom: 15%;
+        background: global.$backgroundGradient;
+        padding: 10px;
+        min-width: 225px;
+        border: solid 1px;
+        border-color: global.$borderColor;
+        border-radius: 5px;
+
+        section {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    section {
+        &>:not(:first-child) {
+            margin-top: 5px;
+        }
+
+        &>:first-child {
+            margin-bottom: 5px;
+        }
+    }
+
+
+}

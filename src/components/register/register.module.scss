@@ -1,5 +1,5 @@
 @use '/src/styles/global.module.scss';
-@use '/src/styles/global_text.scss';
+@use '/src/styles/global_text.module.scss';
 
 .registerForm {
     display: flex;

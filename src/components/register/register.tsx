@@ -4,9 +4,11 @@ import React, { Component, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { render } from "react-dom";
-import CustomInput from "../customInput";
+import CustomInput from "../elements/customInput";
 import axios from "../../api/axios";
 import { AxiosError } from "axios";
+import { Link } from "react-router-dom";
+import PageTemplate from "../elements/page_template";
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -96,9 +98,9 @@ function Register() {
     }
 
     return (
-        <div className={styles.registerRoot}>
 
-            <section className={styles.registerSection} >
+        <PageTemplate children={
+            <>
                 {errMsg ? <div className={styles.errMsgContainer}>
                     <p
                         ref={errRef}
@@ -185,10 +187,11 @@ function Register() {
                     </form>
                     <p className={styles.signInSection}>
                         Already registered? <br />
-                        <a href="#" className={globalStyles.link}>Sign in</a>
+                        <Link to="/login">Sign up</Link>
+
                     </p> </>)}
-            </section >
-        </div>
+            </>
+        } />
     )
 }
 
