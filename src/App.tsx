@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+
 import Admin from './components/admin'
 import Editor from './components/editor'
 import Home from './components/home'
 import Layout from './components/layout'
 import LinkPage from './components/linkPage'
-
 import Login from './components/login'
 import Lounge from './components/lounge'
 import Missing from './components/missing'
@@ -14,9 +14,9 @@ import Register from './components/register'
 import RequireAuth from './components/require_auth'
 import Unauthorized from './components/unauthorized'
 
+const ROLES = { user: 2001, editor: 1984, admin: 5150 };
 
 function App() {
-  const ROLES = { user: 2001, editor: 1984, admin: 5150 };
   return (
     <Routes>
       <Route path='/' element={<Layout />}>

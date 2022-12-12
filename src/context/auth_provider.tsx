@@ -3,7 +3,12 @@ import React, { createContext, Dispatch, SetStateAction, useState } from "react"
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 interface AuthContextType {
-    auth: { user: string, pwd: string, roles: [], accessToken: string },
+    auth: {
+        user: string,
+        pwd: string,
+        roles: [],
+        accessToken: string
+    },
     setAuth: React.Dispatch<SetStateAction<any>>
 }
 

@@ -7,13 +7,13 @@ import CustomInput from "../elements/customInput";
 import axios from "../../api/axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import PageTemplate from "../elements/page_template";
-import useAuth from "../../hooks/use_auth";
+import UseAuth from "../../hooks/use_auth";
 
 const LOGIN_URL = '/auth';
 
 function Login() {
 
-    const { setAuth } = useAuth();
+    const { setAuth } = UseAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -37,22 +37,18 @@ function Login() {
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         try {
-            const response = await axios.post(
-                LOGIN_URL,
-                JSON.stringify({ user, pwd }), {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            });
+            const response = await axios.post(LOGIN_URL,
+                JSON.stringify({ user, pwd }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true,
+                });
 
             console.log(JSON.stringify(response?.data));
-            console.log(response);
 
-            const accessToken = response?.data.accessToken;
+            const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
-
             setAuth({ user, pwd, roles, accessToken });
-
-
             setUser('');
             setPwd('');
             navigate(from, { replace: true });

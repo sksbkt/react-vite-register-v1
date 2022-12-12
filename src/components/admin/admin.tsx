@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import PageTemplate from "../elements/page_template"
+import Users from "../users"
 
 const Admin = () => {
     return (
@@ -7,7 +8,7 @@ const Admin = () => {
 
             <section>
                 <h1>Admins Page</h1>
-                <p>You must have been assigned an Admin role.</p>
+                <Users />
                 <div className="flexGrow">
                     <Link to="/">Home</Link>
                 </div>
