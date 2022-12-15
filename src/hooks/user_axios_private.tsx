@@ -11,10 +11,10 @@ function useAxiosPrivate() {
     useEffect(() => {
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {
-                console.log('REQ INTER');
-                if (!config.headers!['Authorization']) {
-                    config.headers!['Authorization'] = `Bearer ${auth?.accessToken}`;
-                }
+                if (config.headers)
+                    if (!config.headers['Authorization']) {
+                        config.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
+                    }
                 return config;
             }, (error) => Promise.reject(error)
         );

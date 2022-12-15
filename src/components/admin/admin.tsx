@@ -5,7 +5,6 @@ import Users from "../users"
 const Admin = () => {
     return (
         <PageTemplate children={
-
             <section>
                 <h1>Admins Page</h1>
                 <Users />

@@ -26,7 +26,6 @@ function Login() {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
-
     useEffect(() => {
         userRef.current?.focus();
     }, []);
@@ -40,11 +39,14 @@ function Login() {
             const response = await axios.post(LOGIN_URL,
                 JSON.stringify({ user, pwd }),
                 {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true,
-                });
-
-            console.log(JSON.stringify(response?.data));
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // "Access-Control-Allow-Methods": ["OPTIONS", "GET", "POST", "PUT", "DELETE"]
+                    },
+                    withCredentials: true
+                }
+            );
+            // console.log(JSON.stringify(response?.data));
 
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;

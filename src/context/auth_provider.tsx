@@ -1,4 +1,4 @@
-import React, { createContext, Dispatch, SetStateAction, useState } from "react";
+import React, { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
@@ -20,6 +20,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const [auth, setAuth] = useState({ user: '', pwd: '', roles: [] as [], accessToken: '' });
     // console.log(auth);
+
+    useEffect(() => {
+        console.log(auth);
+
+    }, [auth]);
 
     return (
 

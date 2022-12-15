@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/user_axios_private";
 import { useRefreshToken } from "../../hooks/use_refresh_token";
 
-function Users() {
-    const [users, setUsers] = useState<{ username: string }[]>();
+const Users = () => {
+    const [users, setUsers] = useState<any[]>();
     const axiosPrivate = useAxiosPrivate();
 
 
@@ -12,11 +12,10 @@ function Users() {
         //? we cancel our request if the components unmounts
         const controller = new AbortController();
 
-
-        async function getUsers() {
+        const getUsers = async () => {
             try {
                 const response = await axiosPrivate.get('/users', {
-                    signal: controller.signal,
+                    signal: controller.signal
                 });
 
                 console.log(response.data);
