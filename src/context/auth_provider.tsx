@@ -9,7 +9,9 @@ interface AuthContextType {
         roles: [],
         accessToken: string
     },
-    setAuth: React.Dispatch<SetStateAction<any>>
+    setAuth: React.Dispatch<SetStateAction<any>>,
+    persist: boolean,
+    setPersist: React.Dispatch<SetStateAction<boolean>>,
 }
 
 interface AuthProviderProps {
@@ -19,6 +21,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 
     const [auth, setAuth] = useState({ user: '', pwd: '', roles: [] as [], accessToken: '' });
+    const [persist, setPersist] = useState<boolean>(JSON.parse(localStorage.getItem("persist")!) || false);
+
     // console.log(auth);
 
     useEffect(() => {
@@ -28,7 +32,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     return (
 
-        <AuthContext.Provider value={{ auth, setAuth }}>
+        <AuthContext.Provider value={{ auth, setAuth, persist, setPersist }}>
             {children}
         </AuthContext.Provider>
     );

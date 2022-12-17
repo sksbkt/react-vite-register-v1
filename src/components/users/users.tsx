@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/user_axios_private";
-import { useRefreshToken } from "../../hooks/use_refresh_token";
+import './users.module.scss'
 
 const Users = () => {
     const [users, setUsers] = useState<any[]>();

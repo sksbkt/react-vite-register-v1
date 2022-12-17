@@ -13,7 +13,7 @@ const LOGIN_URL = '/auth';
 
 function Login() {
 
-    const { setAuth } = UseAuth();
+    const { setAuth, persist, setPersist } = UseAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -68,6 +68,13 @@ function Login() {
         }
     }
 
+    function togglePersist() {
+        setPersist(prev => !prev);
+    }
+
+    useEffect(() => {
+        localStorage.setItem("persist", persist.toString());
+    }, [persist]);
     return (
         <PageTemplate children={
             <>
@@ -104,6 +111,16 @@ function Login() {
                         onChange={(value, valid) => { setPwd(value) }}
                     />
                     <button className={globalStyles.button}>Sign in</button>
+                    <div className={styles.persistCheck}>
+                        <input
+                            type="checkbox"
+                            id="persist"
+
+                            onChange={togglePersist}
+                            checked={persist}
+                        />
+                        <label htmlFor="persist">Trust this device</label>
+                    </div>
                 </form>
                 <p className={styles.signInSection}>
                     Still not registered <br />
