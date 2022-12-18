@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useAxiosPrivate from "../../hooks/user_axios_private";
+import useAxiosPrivate from "../../hooks/use_axios_private";
 import './users.module.scss'
 
 const Users = () => {

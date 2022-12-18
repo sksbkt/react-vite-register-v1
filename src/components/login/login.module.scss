@@ -1,6 +1,74 @@
 @use '/src/styles/global.module.scss';
 @use '/src/styles/global_text.module.scss';
 
+.authSection {
+    display: flex;
+    flex-direction: column;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        &>* {
+            margin-top: 5px;
+        }
+
+        label {
+            font-size: global_text.$secondaryFontSize;
+        }
+
+        input:-webkit-autofill,
+        button,
+        input {
+            border: none;
+            background-color: white;
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+            border: 1px solid global.$borderColorDark;
+            border-radius: 5px;
+            padding: 5px 5px;
+            transition: all ease-in-out .2s;
+        }
+
+        button {
+            background-color: global.$inputBackGroundColor;
+            color: global.$inputTextColor;
+        }
+
+        input:-webkit-autofill:active,
+        button:active,
+        input:active {
+            background-color: global.$inputBackGroundColorClicked;
+            -webkit-box-shadow: 0 0 0 30px global.$inputBackGroundColorClicked inset !important;
+        }
+
+        input:-webkit-autofill:hover,
+        button:hover,
+        input:hover {
+            background-color: global.$inputBackGroundColorHover;
+            -webkit-box-shadow: 0 0 0 30px global.$inputBackGroundColorHover inset !important;
+        }
+
+        input:-webkit-autofill:focus,
+        button:focus,
+        input:focus {
+            background-color: global.$inputBackGroundColorHover;
+            -webkit-box-shadow: 0 0 0 30px global.$inputBackGroundColorHover inset !important;
+        }
+
+        input:disabled {
+            background-color: global.$inputBackGroundColorDisabled;
+            color: global.$inputTextColorDisabled;
+            -webkit-box-shadow: 0 0 0 30px global.$inputTextColorDisabled inset !important;
+        }
+
+        .persistCheck {
+            label {
+                font-size: global_text.$smFontSize ;
+            }
+        }
+    }
+}
+
 .loginRoot {
     height: 100vh;
     display: flex;
