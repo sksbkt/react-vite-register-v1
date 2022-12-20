@@ -34,11 +34,9 @@ function Register() {
     const [matchFocus, setMatchFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         console.log(validName);
-
     }, [validName]);
 
 
@@ -54,7 +52,7 @@ function Register() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log(user, pwd);
+        // console.log(user, pwd);
 
         //! to avoid JS hack
         const userInput = USER_REGEX.test(user)
@@ -76,11 +74,10 @@ function Register() {
                     withCredentials: true
                 }
             );
-            console.log(response.data);
+            // console.log(response.data);
             // console.log(response.data.accessToken);
-            console.log(JSON.stringify(response));
+            // console.log(JSON.stringify(response));
 
-            setSuccess(true);
             setUser('');
             setPwd('');
         } catch (err: any) {
@@ -109,9 +106,7 @@ function Register() {
                         aria-live="assertive"
                     >{errMsg}</p>
                 </div> : <></>}
-                {success ? (<section>
-                    <h1>success</h1>
-                </section>) : (<>
+                {(<section>
                     <h1>Register</h1>
                     <form className={styles.registerForm} noValidate onSubmit={handleSubmit}>
                         <CustomInput
@@ -187,9 +182,9 @@ function Register() {
                     </form>
                     <p className={styles.signInSection}>
                         Already registered? <br />
-                        <Link to="/login">Sign up</Link>
+                        <Link to="/login">Sign in</Link>
 
-                    </p> </>)}
+                    </p> </section>)}
             </>
         } />
     )

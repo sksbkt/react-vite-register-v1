@@ -15,7 +15,7 @@ export function getLocalValue(key: string, initValue: any) {
     return initValue;
 }
 
-function useLocalStorage(key: string, initValue: string) {
+function useLocalStorage(key: string, initValue: any) {
     const [value, setValue] = useState(
         () => getLocalValue(key, initValue)
     );

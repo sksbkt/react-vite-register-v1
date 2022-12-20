@@ -5,6 +5,8 @@
     display: flex;
     flex-direction: column;
 
+
+
     form {
         display: flex;
         flex-direction: column;
@@ -12,6 +14,7 @@
         &>* {
             margin-top: 5px;
         }
+
 
         label {
             font-size: global_text.$secondaryFontSize;
@@ -66,132 +69,25 @@
                 font-size: global_text.$smFontSize ;
             }
         }
+
+        [type="checkbox"] {
+            margin-right: 5px;
+            border-radius: 5px;
+            width: 1.3em;
+            height: 1.3em;
+            background-color: white;
+            border-radius: 50%;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+            appearance: none;
+            -webkit-appearance: none;
+            outline: none;
+            cursor: pointer;
+            -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+        }
+
+        [type="checkbox"]:checked {
+            background-color: global.$checkedColor;
+        }
     }
-}
-
-.loginRoot {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-
-    .loginSection {
-        justify-content: start;
-        align-items: flex-start;
-        margin-bottom: 15%;
-        background: global.$backgroundGradient;
-        padding: 10px;
-        min-width: 225px;
-        border: solid 1px;
-        border-color: global.$borderColor;
-        border-radius: 5px;
-    }
-
-}
-
-.signInBtn {
-    width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    height: 26px;
-    border-radius: 5px;
-    padding: 0;
-    margin-top: 10px;
-    border: 1px solid;
-}
-
-.signInSection {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 10px;
-    color: global.$secondaryTextColor;
-    font-size: global_text.$secondaryFontSize;
-}
-
-.errmsg {}
-
-.offscreen {}
-
-
-.loginRoot {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-
-    .loginSection {
-        justify-content: start;
-        align-items: flex-start;
-        margin-bottom: 15%;
-        background: global.$backgroundGradient;
-        padding: 10px;
-        min-width: 225px;
-        border: solid 1px;
-        border-color: global.$borderColor;
-        border-radius: 5px;
-    }
-
-}
-
-.signInBtn {
-    width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    height: 26px;
-    border-radius: 5px;
-    padding: 0;
-    margin-top: 10px;
-    border: 1px solid;
-}
-
-.signInSection {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 10px;
-    color: global.$secondaryTextColor;
-    font-size: global_text.$secondaryFontSize;
-}
-
-.errmsg {}
-
-.offscreen {}
-
-.persistCheck {
-    margin-top: 5px;
-    display: flex;
-    align-content: flex-start;
-    align-items: center;
-
-    label {
-        font-size: global_text.$smFontSize;
-    }
-}
-
-[type="checkbox"] {
-    margin-right: 5px;
-    border-radius: 5px;
-    width: 1.3em;
-    height: 1.3em;
-    background-color: white;
-    border-radius: 50%;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-    appearance: none;
-    -webkit-appearance: none;
-    outline: none;
-    cursor: pointer;
-}
-
-[type="checkbox"]:checked {
-    background-color: global.$checkedColor;
 }

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import UseAuth from "../../hooks/use_auth";
 import { useRefreshToken } from "../../hooks/use_refresh_token";
+import useLocalStorage from "../../hooks/use_localstorage";
 
 function PersistLogin() {
 
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
-    const { auth, persist } = UseAuth();
+    const { auth } = UseAuth();
+    const [persist] = useLocalStorage('persist', false);
     useEffect(() => {
         let isMounted = true;
         async function verifyRefreshToken() {
@@ -24,7 +26,7 @@ function PersistLogin() {
     }, []);
     useEffect(() => {
         console.log(`isLoading ${isLoading}`);
-        console.log(`aT ${JSON.stringify(auth?.accessToken)}`);
+        // console.log(`aT ${JSON.stringify(auth?.accessToken)}`);
 
     }, [isLoading]);
 

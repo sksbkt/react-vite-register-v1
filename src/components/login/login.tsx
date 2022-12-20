@@ -6,6 +6,7 @@ import PageTemplate from "../elements/page_template";
 
 import useAuth from "../../hooks/use_auth";
 import useInput from "../../hooks/use_input";
+import useToggle from "../../hooks/use_toggle";
 
 const LOGIN_URL = '/auth';
 
@@ -24,7 +25,7 @@ function Login() {
     const [user, resetUser, userAttribs] = useInput('user', '')
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    // const [check, toggleCheck] = useToggle('persist', false);
+    const [check, toggleCheck] = useToggle('persist', false);
 
     useEffect(() => {
         if (userRef.current)
@@ -47,8 +48,7 @@ function Login() {
                 }
             );
             const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
+            setAuth({ user, accessToken });
             resetUser();
             setPwd('');
             navigate(from, { replace: true });
@@ -96,8 +96,8 @@ function Login() {
                         <input
                             type="checkbox"
                             id="persist"
-                        // onChange={toggleCheck}
-                        // checked={check}
+                            onChange={toggleCheck}
+                            checked={check}
                         />
                         <label htmlFor="persist">Trust This Device</label>
                     </div>
